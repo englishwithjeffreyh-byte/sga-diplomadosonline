@@ -1,0 +1,147 @@
+@startuml SGA-DO
+allowmixing
+
+' SGA-DO - Diagrama de clases corregido
+' Nota y Certificado no son clases del dominio.
+
+title SGA-DO - Sistema de Gestión Académica
+
+skinparam backgroundColor #F6F8FC
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam defaultFontName Arial
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #24356D
+  ArrowColor #24356D
+  FontColor #142555
+  AttributeFontColor #2F3B5C
+  MethodFontColor #2F3B5C
+}
+skinparam note {
+  BackgroundColor #FFF9E8
+  BorderColor #D9B75C
+  FontColor #4B4B42
+}
+
+abstract class Persona {
+  - cedula: String
+  - nombreCompleto: String
+  - correo: String
+  --
+  + mostrarDatos(): String
+}
+
+class Alumno {
+  - notas: List<Double> { máximo 3 }
+  - programa: ProgramaAcademico
+  --
+  + agregarNota(nota: Double): void
+  + eliminarUltimaNota(): Double
+  + calcularPromedio(): Double
+  + estaAprobado(): boolean
+  + obtenerEstatus(): String
+}
+
+class Profesor {
+  - especialidad: String
+  - materiaAsignada: String
+  --
+  + mostrarInformacion(): String
+}
+
+abstract class ProgramaAcademico {
+  - nombre: String
+  --
+  + evaluarAprobacion(notas: List<Double>): boolean
+  + obtenerCriterio(): String
+}
+
+class Curso {
+  - notaMinima: Double = 10
+  --
+  + evaluarAprobacion(notas: List<Double>): boolean
+}
+
+class Diplomado {
+  - notaMinima: Double = 14
+  --
+  + evaluarAprobacion(notas: List<Double>): boolean
+}
+
+class Bootcamp {
+  - notaMinimaGlobal: Double = 14
+  --
+  + evaluarAprobacion(notas: List<Double>): boolean
+}
+
+class SistemaGestionAcademica {
+  - alumnos: List<Alumno>
+  - profesores: List<Profesor>
+  - pilaDeshacer: Stack<String>
+  - colaCertificados: Queue<Alumno>
+  --
+  + registrarAlumno(): void
+  + registrarProfesor(): void
+  + registrarNota(): void
+  + deshacerUltimaNota(): void
+  + generarColaCertificados(): void
+  + mostrarReporteGeneral(): void
+  + cargarAlumnosTXT(): void
+  + guardarAlumnosTXT(): void
+  + cargarProfesoresTXT(): void
+  + guardarProfesoresTXT(): void
+}
+
+file "alumnos.txt" as ArchivoAlumnos
+file "profesores.txt" as ArchivoProfesores
+file "certificados_pendientes.txt" as ArchivoCertificados
+
+Persona <|-- Alumno
+Persona <|-- Profesor
+
+ProgramaAcademico <|-- Curso
+ProgramaAcademico <|-- Diplomado
+ProgramaAcademico <|-- Bootcamp
+
+SistemaGestionAcademica "1" o-- "0..*" Alumno : gestiona
+SistemaGestionAcademica "1" o-- "0..*" Profesor : gestiona
+Alumno "0..*" --> "1" ProgramaAcademico : programa asignado
+SistemaGestionAcademica ..> ProgramaAcademico : aplica regla polimórfica
+SistemaGestionAcademica ..> ArchivoAlumnos : lee / escribe
+SistemaGestionAcademica ..> ArchivoProfesores : lee / escribe
+SistemaGestionAcademica ..> ArchivoCertificados : genera reporte
+
+note right of Alumno
+  Las notas son valores numéricos
+  almacenados en la lista notas.
+  No existe una clase Nota.
+end note
+
+note right of SistemaGestionAcademica
+  pilaDeshacer usa LIFO para eliminar
+  la última nota registrada.
+
+  colaCertificados usa FIFO y contiene
+  alumnos aprobados.
+end note
+
+note right of ArchivoCertificados
+  Salida de reporte.
+  No existe una clase Certificado.
+end note
+
+note bottom of Curso
+  Aprueba con promedio >= 10/20
+end note
+
+note bottom of Diplomado
+  Aprueba con promedio >= 14/20
+end note
+
+note bottom of Bootcamp
+  Aprueba solo si todas las notas >= 14/20
+end note
+
+@enduml

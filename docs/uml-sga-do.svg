@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="930" viewBox="0 0 1500 930" role="img" aria-labelledby="title description">
+  <title id="title">SGA-DO - Diagrama de clases corregido</title>
+  <desc id="description">Diagrama UML del Sistema de Gestión Académica para DiplomadosOnline. Nota y Certificado no aparecen como clases; las notas pertenecen a Alumno y los certificados se generan como reporte desde una cola de alumnos aprobados.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 12 6 L 0 12 z" fill="#24356d"/>
+    </marker>
+    <marker id="inheritance" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 8 L 13 0 L 13 16 Z" fill="#ffffff" stroke="#24356d" stroke-width="1.5"/>
+    </marker>
+    <style>
+      .title { font: 700 28px Arial, sans-serif; fill: #12234e; }
+      .subtitle { font: 400 15px Arial, sans-serif; fill: #66718f; }
+      .class-title { font: 700 18px Arial, sans-serif; fill: #142555; }
+      .class-stereo { font: 700 11px Arial, sans-serif; letter-spacing: 1.3px; fill: #5d6ac1; }
+      .class-line { font: 400 13px Arial, sans-serif; fill: #2f3b5c; }
+      .class-line-bold { font: 700 13px Arial, sans-serif; fill: #25396e; }
+      .method { font: 400 12px Arial, sans-serif; fill: #2f3b5c; }
+      .label { font: 700 11px Arial, sans-serif; fill: #5d6a88; }
+      .note-title { font: 700 15px Arial, sans-serif; fill: #24356d; }
+      .note-text { font: 400 13px Arial, sans-serif; fill: #3f4d6b; }
+    </style>
+  </defs>
+
+  <rect width="1500" height="930" fill="#f6f8fc"/>
+  <rect x="0" y="0" width="1500" height="88" fill="#0a2350"/>
+  <text x="56" y="42" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#ffffff">SGA-DO · Sistema de Gestión Académica</text>
+  <text x="56" y="67" font-family="Arial, sans-serif" font-size="13" fill="#a9b7df">Modelo orientado a objetos · versión corregida para el MVP</text>
+  <rect x="1265" y="28" width="178" height="34" rx="17" fill="#67d6b0"/>
+  <text x="1354" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#0a2350">UML · ENTREGA 02</text>
+
+  <text x="56" y="126" class="title">Arquitectura de clases</text>
+  <text x="56" y="151" class="subtitle">Las notas son datos de Alumno y los certificados son un reporte generado por el sistema.</text>
+
+  <!-- connectors -->
+  <path d="M 260 350 L 250 420" fill="none" stroke="#24356d" stroke-width="2" marker-end="url(#inheritance)"/>
+  <path d="M 260 350 L 650 420" fill="none" stroke="#24356d" stroke-width="2" marker-end="url(#inheritance)"/>
+  <path d="M 1070 400 L 900 485" fill="none" stroke="#24356d" stroke-width="2" marker-end="url(#inheritance)"/>
+  <path d="M 1070 400 L 1095 485" fill="none" stroke="#24356d" stroke-width="2" marker-end="url(#inheritance)"/>
+  <path d="M 1070 400 L 1290 485" fill="none" stroke="#24356d" stroke-width="2" marker-end="url(#inheritance)"/>
+  <path d="M 840 230 L 880 265" fill="none" stroke="#52629a" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+  <path d="M 840 295 L 665 420" fill="none" stroke="#52629a" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+  <path d="M 650 370 L 270 420" fill="none" stroke="#52629a" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+  <text x="776" y="246" class="label">gestiona</text>
+  <text x="705" y="357" class="label">administra</text>
+  <text x="440" y="382" class="label">administra</text>
+  <text x="784" y="438" class="label">asigna</text>
+
+  <!-- Persona -->
+  <g>
+    <rect x="56" y="190" width="330" height="160" rx="7" fill="#ffffff" stroke="#24356d" stroke-width="2"/>
+    <rect x="56" y="190" width="330" height="48" rx="7" fill="#dfe9ff"/>
+    <rect x="56" y="225" width="330" height="13" fill="#dfe9ff"/>
+    <text x="78" y="211" class="class-stereo">&lt;&lt;ABSTRACT&gt;&gt;</text>
+    <text x="78" y="230" class="class-title">Persona</text>
+    <line x1="56" y1="238" x2="386" y2="238" stroke="#c4cde3"/>
+    <text x="76" y="260" class="class-line">- cedula: String</text>
+    <text x="76" y="280" class="class-line">- nombre: String</text>
+    <text x="76" y="300" class="class-line">- correo: String</text>
+    <line x1="56" y1="312" x2="386" y2="312" stroke="#c4cde3"/>
+    <text x="76" y="334" class="method">+ mostrarDatos(): String</text>
+  </g>
+
+  <!-- Sistema -->
+  <g>
+    <rect x="420" y="175" width="430" height="195" rx="7" fill="#ffffff" stroke="#24356d" stroke-width="2"/>
+    <rect x="420" y="175" width="430" height="48" rx="7" fill="#d9f5eb"/>
+    <rect x="420" y="210" width="430" height="13" fill="#d9f5eb"/>
+    <text x="442" y="196" class="class-stereo">&lt;&lt;CONTROL&gt;&gt;</text>
+    <text x="442" y="215" class="class-title">SistemaGestionAcademica</text>
+    <line x1="420" y1="223" x2="850" y2="223" stroke="#b6dfd1"/>
+    <text x="440" y="245" class="class-line">- alumnos: List&lt;Alumno&gt;</text>
+    <text x="440" y="263" class="class-line">- profesores: List&lt;Profesor&gt;</text>
+    <text x="440" y="281" class="class-line">- pilaDeshacer: Stack&lt;String&gt;</text>
+    <text x="440" y="299" class="class-line">- colaCertificados: Queue&lt;Alumno&gt;</text>
+    <line x1="420" y1="311" x2="850" y2="311" stroke="#b6dfd1"/>
+    <text x="440" y="331" class="method">+ registrarAlumno(): void</text>
+    <text x="640" y="331" class="method">+ registrarProfesor(): void</text>
+    <text x="440" y="349" class="method">+ registrarNota(): void</text>
+    <text x="640" y="349" class="method">+ deshacerUltimaNota(): void</text>
+    <text x="440" y="367" class="method">+ generarColaCertificados(): void</text>
+    <text x="640" y="367" class="method">+ mostrarReporteGeneral(): void</text>
+  </g>
+
+  <!-- Alumno -->
+  <g>
+    <rect x="56" y="420" width="390" height="205" rx="7" fill="#ffffff" stroke="#24356d" stroke-width="2"/>
+    <rect x="56" y="420" width="390" height="46" rx="7" fill="#fff0e9"/>
+    <text x="78" y="449" class="class-title">Alumno</text>
+    <line x1="56" y1="466" x2="446" y2="466" stroke="#ead0c8"/>
+    <text x="76" y="488" class="class-line">- notas: List&lt;Double&gt; [máximo 3]</text>
+    <text x="76" y="508" class="class-line">- programa: ProgramaAcademico</text>
+    <line x1="56" y1="520" x2="446" y2="520" stroke="#ead0c8"/>
+    <text x="76" y="542" class="method">+ agregarNota(nota: Double): void</text>
+    <text x="76" y="560" class="method">+ eliminarUltimaNota(): Double</text>
+    <text x="76" y="578" class="method">+ calcularPromedio(): Double</text>
+    <text x="76" y="596" class="method">+ estaAprobado(): boolean</text>
+  </g>
+
+  <!-- Profesor -->
+  <g>
+    <rect x="480" y="420" width="360" height="170" rx="7" fill="#ffffff" stroke="#24356d" stroke-width="2"/>
+    <rect x="480" y="420" width="360" height="46" rx="7" fill="#f0edff"/>
+    <text x="502" y="449" class="class-title">Profesor</text>
+    <line x1="480" y1="466" x2="840" y2="466" stroke="#d8d0f0"/>
+    <text x="500" y="488" class="class-line">- especialidad: String</text>
+    <text x="500" y="508" class="class-line">- materiaAsignada: String</text>
+    <line x1="480" y1="520" x2="840" y2="520" stroke="#d8d0f0"/>
+    <text x="500" y="544" class="method">+ mostrarInformacion(): String</text>
+  </g>
+
+  <!-- Programa -->
+  <g>
+    <rect x="880" y="190" width="380" height="210" rx="7" fill="#ffffff" stroke="#24356d" stroke-width="2"/>
+    <rect x="880" y="190" width="380" height="52" rx="7" fill="#dfe9ff"/>
+    <text x="902" y="213" class="class-stereo">&lt;&lt;ABSTRACT&gt;&gt;</text>
+    <text x="902" y="232" class="class-title">ProgramaAcademico</text>
+    <line x1="880" y1="242" x2="1260" y2="242" stroke="#c4cde3"/>
+    <text x="900" y="266" class="class-line">- nombre: String</text>
+    <line x1="880" y1="278" x2="1260" y2="278" stroke="#c4cde3"/>
+    <text x="900" y="302" class="method">+ evaluarAprobacion(notas: List&lt;Double&gt;): boolean</text>
+    <text x="900" y="322" class="method">+ descripcionRegla(): String</text>
+  </g>
+
+  <!-- Program children -->
+  <g>
+    <rect x="780" y="485" width="205" height="135" rx="7" fill="#ffffff" stroke="#24356d" stroke-width="2"/>
+    <rect x="780" y="485" width="205" height="42" rx="7" fill="#e8f8f1"/>
+    <text x="802" y="512" class="class-title">Curso</text>
+    <line x1="780" y1="527" x2="985" y2="527" stroke="#bee3d3"/>
+    <text x="800" y="551" class="class-line">- notaMinima: 10</text>
+    <line x1="780" y1="561" x2="985" y2="561" stroke="#bee3d3"/>
+    <text x="800" y="585" class="method">+ evaluarAprobacion(): boolean</text>
+  </g>
+  <g>
+    <rect x="1010" y="485" width="205" height="135" rx="7" fill="#ffffff" stroke="#24356d" stroke-width="2"/>
+    <rect x="1010" y="485" width="205" height="42" rx="7" fill="#e8f8f1"/>
+    <text x="1032" y="512" class="class-title">Diplomado</text>
+    <line x1="1010" y1="527" x2="1215" y2="527" stroke="#bee3d3"/>
+    <text x="1030" y="551" class="class-line">- notaMinima: 14</text>
+    <line x1="1010" y1="561" x2="1215" y2="561" stroke="#bee3d3"/>
+    <text x="1030" y="585" class="method">+ evaluarAprobacion(): boolean</text>
+  </g>
+  <g>
+    <rect x="1240" y="485" width="205" height="135" rx="7" fill="#ffffff" stroke="#24356d" stroke-width="2"/>
+    <rect x="1240" y="485" width="205" height="42" rx="7" fill="#e8f8f1"/>
+    <text x="1262" y="512" class="class-title">Bootcamp</text>
+    <line x1="1240" y1="527" x2="1445" y2="527" stroke="#bee3d3"/>
+    <text x="1260" y="551" class="class-line">- notaMinimaGlobal: 14</text>
+    <line x1="1240" y1="561" x2="1445" y2="561" stroke="#bee3d3"/>
+    <text x="1260" y="585" class="method">+ evaluarAprobacion(): boolean</text>
+  </g>
+
+  <!-- explanatory note -->
+  <g>
+    <rect x="56" y="690" width="1389" height="150" rx="10" fill="#ffffff" stroke="#c8d3eb" stroke-width="2"/>
+    <rect x="56" y="690" width="10" height="150" rx="5" fill="#67d6b0"/>
+    <text x="88" y="723" class="note-title">Decisión de modelado</text>
+    <text x="88" y="751" class="note-text">Nota no es una clase: Alumno mantiene notas como una lista de valores numéricos, con máximo de tres elementos.</text>
+    <text x="88" y="777" class="note-text">Certificado no es una clase: la cola procesa alumnos aprobados y genera certificados_pendientes.txt como reporte.</text>
+    <text x="88" y="803" class="note-text">La Pila LIFO y la Cola FIFO son estructuras utilizadas por SistemaGestionAcademica, no entidades del dominio.</text>
+  </g>
+
+  <text x="56" y="886" font-family="Arial, sans-serif" font-size="11" fill="#8792ac">SGA-DO · DiplomadosOnline · Modelado orientado a objetos</text>
+</svg>
