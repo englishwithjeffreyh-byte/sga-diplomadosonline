@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable, Optional
@@ -30,6 +31,11 @@ def leer_nota(texto: str) -> float:
 
 def mostrar_nota(valor: float) -> str:
     return f"{valor:.1f}" if valor % 1 else str(int(valor))
+
+
+def mostrar_promedio(valor: float) -> str:
+    promedio_truncado = math.floor(valor * 10) / 10
+    return f"{promedio_truncado:.1f}"
 
 
 @dataclass
@@ -275,7 +281,7 @@ class SistemaSGADO:
                 [
                     f"{indice}. [{alumno.cedula}] {alumno.nombre}",
                     f"- Programa: {alumno.programa.nombre}",
-                    f"- Promedio Final: {alumno.promedio():.1f}",
+                    f"- Promedio Final: {mostrar_promedio(alumno.promedio())}",
                     f"- Estatus: APROBADO{regla_bootcamp}",
                     "",
                 ]
@@ -304,7 +310,7 @@ class SistemaSGADO:
                 lineas.append(
                     f"- [{alumno.cedula}] {alumno.nombre} | {alumno.programa.nombre} | "
                     f"Notas: {', '.join(mostrar_nota(nota) for nota in alumno.notas) or 'Sin notas'} | "
-                    f"Promedio: {alumno.promedio():.1f} | {alumno.estatus()}"
+                    f"Promedio: {mostrar_promedio(alumno.promedio())} | {alumno.estatus()}"
                 )
         else:
             lineas.append("- No hay alumnos registrados.")

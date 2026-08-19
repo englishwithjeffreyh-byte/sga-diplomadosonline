@@ -30,6 +30,9 @@ def test_reglas_lifo_fifo_y_validaciones() -> None:
             "María Gómez": "REPROBADO",
             "Luis Rojas": "APROBADO",
         }
+        reporte = sistema.reporte_general()
+        assert "Promedio: 13.6" in reporte
+        assert "Promedio: 17.6" in reporte
 
         alumno = sistema.registrar_alumno("V-999", "Prueba LIFO", "test@email.com", "Curso")
         sistema.registrar_nota(alumno.cedula, 15)
